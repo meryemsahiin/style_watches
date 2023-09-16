@@ -1,0 +1,40 @@
+<%- include("partials/_header") %>
+
+<body class="sub_page">
+
+  <%- include("partials/_navigation") %>
+
+  <!-- register section -->
+  <section class="contact_section layout_padding">
+    <div class="container">
+      <div class="heading_container">
+        <h2>
+          LOGIN
+        </h2>
+      </div>
+      <div class="row">
+        <div class="col-md-10">
+          <div class="form_container">
+            <form action="/login" method="POST">
+              <div class="form-group">
+                <input type="email" name="email" placeholder="Email" />
+              </div>
+              <div class="form-group">
+                <input type="password" name="password" placeholder="Password"/>
+              </div>
+              <div class="btn_box">
+                <button type="submit">
+                  LOGIN
+                </button>
+                <button type="submit"><a href="/register">DON'T YOU HAVE AN ACCOUNT?</a>                 
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- end register section -->
+
+  <%- include("partials/_footer") %>
