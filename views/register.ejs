@@ -15,18 +15,36 @@
       <div class="row">
         <div class="col-md-12">
           <div class="form_container">
-            <form action="">
-              <div>
-                <input type="text" placeholder="First Name" />
+            <form action="users/register" method="POST">
+              <div class="col-md-12">
+                <div style="display: none;" class="alert alert-danger" id="name"></div>
+             </div>
+              <div class="col-md-12">
+                <input type="text" name="name" placeholder="First Name" />
               </div>
-              <div>
-                <input type="text" placeholder="Last Name" />
+              <div class="col-md-12">
+                <div style="display: none;" class="alert alert-danger" id="lastname"></div>
+             </div>
+              <div class="col-md-12">
+                <input type="text" name="lastname" placeholder="Last Name" />
               </div>
-              <div>
-                <input type="text" placeholder="Phone Number" />
+              <div class="col-md-12">
+                <div style="display: none;" class="alert alert-danger" id="phone"></div>
+             </div>
+              <div class="col-md-12">
+                <input type="number" name="phone" placeholder="Phone Number" />
               </div>
-              <div>
-                <input type="email" placeholder="Email" />
+              <div class="col-md-12">
+                <div style="display: none;" class="alert alert-danger" id="email"></div>
+             </div>
+              <div class="col-md-12">
+                <input type="email" name="email" placeholder="Email" />
+              </div>
+              <div class="col-md-12">
+                <div style="display: none;" class="alert alert-danger" id="password"></div>
+             </div>
+              <div class="col-md-12">
+                <input class="form_control" placeholder="Password" type="password" name="password">                          
               </div>
               <div class="btn_box">
                 <button>
@@ -38,17 +56,86 @@
             </form>
           </div>
         </div>
-        <!-- <div class="col-md-6 ">
-          <!-- <div class="map_container">
-            <div class="map">
-              <div id="googleMap"></div>
-            </div>
-          </div> -->
         </div> 
       </div>
     </div>
   </section>
   <!-- end contact section -->
+  <script>
+    const form = document.querySelector('form')
+    const emailError = document.querySelector('#email')
+    const passwordError = document.querySelector('#password')
+    const nameError = document.querySelector('#name')
+    const lastnameError = document.querySelector('#lastname')
+    const phoneError = document.querySelector('#phone')
+
+    form.addEventListener("submit", async (e) => {
+       e.preventDefault();
+
+       emailError.textContent = "";
+       passwordError.textContent = "";
+       nameError.textContent = "";
+       lastnameError.textContent = "";
+       phoneError.textContent = "";
+       emailError.style.display = "none"
+       passwordError.style.display = "none"
+       nameError.style.display = "none"
+       lastnameError.style.display = "none"
+       phoneError.style.display = "none"
+
+       const email = form.email.value
+       const password = form.password.value
+       const name = form.name.value
+       const lastname = form.lastname.value
+       const phone = form.phone.value
+
+       try {
+          const res = await fetch('users/register', {
+             method: "POST",
+             body: JSON.stringify({ email, password, name, lastname, phone }),
+             headers: { "Content-Type": "application/json" }
+          })
+
+          const data = await res.json();
+
+          if (data ) {
+
+             if (data.email) {
+                emailError.textContent = data.email
+                emailError.style.display = "block"
+             }
+
+             if (data.password) {
+                passwordError.textContent = data.password
+                passwordError.style.display = "block"
+             }
+
+             if (data.name) {
+                nameError.textContent = data.name
+                nameError.style.display = "block"
+             }
+
+             if (data.lastname) {
+                lastnameError.textContent = data.lastname
+                lastnameError.style.display = "block"
+             }
+
+             if (data.phone) {
+                phoneError.textContent = data.phone
+                phoneError.style.display = "block"
+             }
+
+
+          } 
+          if (data.user ) {
+            location.assign("/login")
+          }
+
+       } catch (err) {
+          console.log("ERR::", err)
+       }
+    })
+ </script>
 
 
   <%- include("partials/_footer") %>

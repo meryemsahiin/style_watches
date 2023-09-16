@@ -1,6 +1,8 @@
+// import User from "../models/userModel.js"
+
 const getIndexPage = (req, res) => {
     res.render("index", {
-        link: "index"
+        link: "index",
     })
 }
 
@@ -30,7 +32,7 @@ const getContactPage = (req, res) => {
 
 const getLoginPage = (req, res) => {
     res.render("login", {
-        link: "login"
+        link: "login",
     })
 }
 
@@ -40,4 +42,11 @@ const getRegisterPage = (req, res) => {
     })
 }
 
-export {getIndexPage, getAboutPage, getProductPage, getTestimonialPage, getContactPage, getLoginPage, getRegisterPage};
+const getLogout = (req, res) => {
+    res.cookie('jwt', '', {
+        maxAge: 1,
+    });
+    res.redirect("/login");
+}
+
+export {getIndexPage, getAboutPage, getProductPage, getTestimonialPage, getContactPage, getLoginPage, getRegisterPage, getLogout};
